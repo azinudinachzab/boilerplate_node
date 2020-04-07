@@ -1,9 +1,9 @@
+require('dotenv').config();
 const mysql = require('mysql');
-
 
 const dbconfig = {
     connect: function(){
-        if(process.env.DB_HOST == '' || process.env.DB_USER == '' || process.env.DB_PASSWORD == '' || process.env.DB_NAME == ''){
+        if(process.env.DB_HOST == undefined || process.env.DB_USER == undefined || process.env.DB_PASSWORD == undefined || process.env.DB_NAME == undefined){
             console.log('DB Not found')
         }
 
@@ -14,6 +14,7 @@ const dbconfig = {
             database: process.env.DB_NAME
         });
         connection.connect();
+        return connection;
     },
 
     close: function(connection){
@@ -23,4 +24,4 @@ const dbconfig = {
         connection.end();
     }
 }
-exports.modules = dbconfig;
+module.exports = dbconfig;
