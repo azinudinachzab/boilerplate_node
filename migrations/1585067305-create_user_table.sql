@@ -5,10 +5,9 @@
 BEGIN;
     create table user
 (
-    id_user                               varchar(20)    not null
-        constraint id_user_pk
-            primary key,
+    id_user                               varchar(20)    not null,
     username                              varchar(100)   not null,
+    PRIMARY KEY (id_user)
 );
 
 COMMIT;

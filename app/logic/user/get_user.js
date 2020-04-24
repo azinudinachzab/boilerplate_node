@@ -1,5 +1,6 @@
 const error = require('../../helper/errors/index')
 const response = require('../../helper/response')
+const db_user = require('../../database/user')
 let lang = 'en'
 
 exports.getUserById = async(req,res) => {
@@ -10,11 +11,15 @@ exports.getUserById = async(req,res) => {
         }
 
         // check db layer if user id is exist or not
-        
+        db_user.get_by_id(id, function(error, result){
+            if(error){
+                throw error
+            }
 
-        res.json(response.createResp(200,{ok:"oke"}))
+            res.json(response.createResp(200,result))
+        })
     }
     catch {
-        res.json(error[lang].unexpected_error)
+        res.json(response.createResp(400,error[lang].unexpected_error))
     }
 }
